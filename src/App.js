@@ -13,14 +13,18 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [searchValue, setSearchValue] = useState('')
   const [photos, setPhotos] = useState([])
+  const [page, setPage] = useState(1)
 
   const fetchData = async ()=> {
     try {
-      const url = `${photosUrl}${client_id}`
+      const pageUrl = `&page=${page}`
+      const url = `${photosUrl}${client_id}${pageUrl}`
       const res = await fetch(url)
       const data = await res.json()
       console.log(data)
-      setPhotos(data)
+      setPhotos((old)=> {
+        return [...old, ...data]
+      })
       setLoading(false)
     } catch(e) {
       console.log(e)
@@ -29,7 +33,25 @@ function App() {
   }
   useEffect(()=> {
     fetchData()
-  }, [])
+  }, [page])
+
+  useEffect(()=> {
+    const event = window.addEventListener('scroll', ()=> {
+      if(
+          !loading &&
+          window.scrollY+window.innerHeight >= document.body.scrollHeight
+        ) {
+          console.log("It workerd")
+          setPage((old)=> {
+            return old + 1
+          })
+        }
+    })
+
+    return ()=> {
+      window.removeEventListener('scroll', event)
+    }
+  },[])
 
   const handleSearch = ()=> {
     console.log("search handled")
