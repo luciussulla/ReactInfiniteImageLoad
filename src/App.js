@@ -2,23 +2,28 @@ import React, {useEffect, useState} from 'react'
 import Photo from './components/Photo'
 import {FiSearch} from 'react-icons/fi'
 import './App.css';
-const key='ovLrqyczs4iuX0Y0VM0oCFbay4Hmk3_IeREbRu6Zq1k'
 const client_id = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`
-const secKey = 'W0JsDQB2dxdvNkVxTVSzUwcM6dcRgYyDpZVyD31y_Ik'
 const photosUrl = 'https://api.unsplash.com/photos/'
-const search = 'https://api.unsplash.com/search/'
-// const apiLink='https://api.unsplash.com/photos/?client_id=ovLrqyczs4iuX0Y0VM0oCFbay4Hmk3_IeREbRu6Zq1k'
+const searchUrl = 'https://api.unsplash.com/search/photos'
 
 function App() {
   const [loading, setLoading] = useState(true)
   const [searchValue, setSearchValue] = useState('')
   const [photos, setPhotos] = useState([])
   const [page, setPage] = useState(1)
+  const [query, setQuery] = useState('')
 
   const fetchData = async ()=> {
+    setLoading(true)
+    const pageUrl = `&page=${page}`
+    const queryUrl = `$query=${query}`
+    let url;    
+    if(query) {
+      url = `${searchUrl}${client_id}${pageUrl}${queryUrl}`
+    } else {
+      url = `${photosUrl}${client_id}${pageUrl}`
+    }
     try {
-      const pageUrl = `&page=${page}`
-      const url = `${photosUrl}${client_id}${pageUrl}`
       const res = await fetch(url)
       const data = await res.json()
       console.log(data)
