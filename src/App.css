@@ -1,24 +1,31 @@
 .App {
   background-color: #fff;
 }
+
 .app-wrapper {
   min-width: 700px; 
   width: 70%; 
   /* border: 1px solid gray;  */
   margin: 50px auto 0;
 }
-.search-wrapper {
 
+.loading {
+  text-align: center;
+}
+
+.search-wrapper {
   width: 250px;
   /* border: 1px solid red;  */
   position: relative; 
 }
+
 .search-glass {
   position: absolute; 
   top: 4px; 
   left: 6px; 
   width: 14px
 }
+
 .search-input {
   box-sizing: border-box;
   outline:0; 
@@ -34,4 +41,48 @@
  {
 
 } */
-
+/* photos section */ 
+.photos-section {
+  display: flex; 
+  justify-content: space-between;
+  flex-wrap: wrap; 
+}
+.photo {
+  position: relative; 
+  box-sizing: border-box;
+  margin-top: 20px; 
+  width: 260px; 
+  height: 230px;
+  border: 1px solid red; 
+  overflow: hidden;
+}
+.photo img {
+  box-sizing: border-box;
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+.photo-info {
+  padding: 5px; 
+  position: absolute; 
+  left:0; 
+  width: 100%; 
+  background-color: rgba(0,0,0,0.3);
+  bottom: -80px; 
+  transition: all .3s ease; 
+}
+.photo:hover .photo-info {
+  bottom: 0; 
+}
+.photo-info p, .photo-info h4 {
+  color: white; 
+}
+.photo-info a {
+  /* border: 1px solid red;  */
+  display: inline-block; 
+}
+.profile-image-link {
+  width: 16px; 
+  height: 16px; 
+  border-radius: 50%; 
+}
